@@ -1,11 +1,5 @@
 import { Tab, Tabs } from '../src';
 import Vue from 'vue/dist/vue.js';
-import expiringStorage from '../src/expiringStorage';
-import LocalStorageMock from './helpers/LocalStorageMock';
-
-const localStorage = new LocalStorageMock();
-
-window.localStorage = localStorage;
 
 describe('vue-tabs-component', () => {
     Vue.component('tabs', Tabs);
@@ -27,8 +21,6 @@ describe('vue-tabs-component', () => {
                 </tabs>
             </div>
         `;
-
-        localStorage.clear();
 
         const dateClass = Date;
 
@@ -82,50 +74,6 @@ describe('vue-tabs-component', () => {
         const tabs = await createVm();
 
         expect(tabs.activeTabHash).toEqual('#first-tab');
-    });
-
-    it('writes the hash of the last opened tab in local storage', async () => {
-        window.location.hash = '#third-tab';
-
-        const tabs = await createVm();
-
-        expect(tabs.activeTabHash).toEqual('#third-tab');
-
-        expect(localStorage.getAll()).toMatchSnapshot();
-    });
-
-    it('opens up the tabname found in storage', async () => {
-        expiringStorage.set('vue-tabs-component.cache.blank', '#third-tab', 5);
-
-        const tabs = await createVm();
-
-        expect(tabs.activeTabHash).toEqual('#third-tab');
-    });
-
-    it('will not use the tab in storage if it has expired', async () => {
-        expiringStorage.set('vue-tabs-component.cache.blank', '#third-tab', 5);
-
-        progressTime(6);
-
-        const tabs = await createVm();
-
-        expect(tabs.activeTabHash).toEqual('#first-tab');
-    });
-
-    it('the life time of the cache can be set', async () => {
-        document.body.innerHTML = `
-            <div id="app">
-                <tabs cache-lifetime="10">
-                    <tab name="First tab">
-                        First tab content
-                    </tab>
-                </tabs>
-            </div>
-        `;
-
-        await createVm();
-
-        expect(localStorage.getAll()).toMatchSnapshot();
     });
 
     it('can accept a prefix and a suffix for the name', async () => {
