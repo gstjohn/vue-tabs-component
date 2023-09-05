@@ -66,8 +66,8 @@
                 return;
             }
 
-            if(this.options.defaultTabHash !== null && this.findTab("#" + this.options.defaultTabHash)) {
-                this.selectTab("#" + this.options.defaultTabHash);
+            if (this.options.defaultTabHash !== null && this.findTab('#' + this.options.defaultTabHash)) {
+                this.selectTab('#' + this.options.defaultTabHash);
                 return;
             }
 
@@ -89,7 +89,7 @@
 
                 const selectedTab = this.findTab(selectedTabHash);
 
-                if (! selectedTab) {
+                if (!selectedTab) {
                     return;
                 }
 
@@ -118,7 +118,7 @@
             setTabVisible(hash, visible) {
                 const tab = this.findTab(hash);
 
-                if (! tab) {
+                if (!tab) {
                     return;
                 }
 
@@ -140,28 +140,28 @@
                 }
             },
 
-            getTabIndex(hash){
-            	const tab = this.findTab(hash);
+            getTabIndex(hash) {
+                const tab = this.findTab(hash);
 
-            	return this.tabs.indexOf(tab);
+                return this.tabs.indexOf(tab);
             },
 
-			getTabHash(index){
-            	const tab = this.tabs.find(tab => this.tabs.indexOf(tab) === index);
+            getTabHash(index) {
+                const tab = this.tabs.find(tab => this.tabs.indexOf(tab) === index);
 
-            	if (!tab) {
-					return;
+                if (!tab) {
+                    return;
                 }
 
                 return tab.hash;
-			},
-
-            getActiveTab(){
-            	return this.findTab(this.activeTabHash);
             },
 
-			getActiveTabIndex() {
-            	return this.getTabIndex(this.activeTabHash);
+            getActiveTab() {
+                return this.findTab(this.activeTabHash);
+            },
+
+            getActiveTabIndex() {
+                return this.getTabIndex(this.activeTabHash);
             },
         },
     };
